@@ -21,17 +21,16 @@ public class snu : MonoBehaviour
     void Update()
     {
         accelerationDir = Input.acceleration;
-
-        if (antall > 1)
+       if (Input.acceleration.x < -0.1f)
         {
             antall = antall + 1;
-            SetAntallTekst("Antall snu: " + antall);
+            SetAntallTekst("Antall: " + antall);
         }
+
 
         if(accelerationDir.sqrMagnitude >= 10f)
         {
             SetAntallTekst("Du ristet for hardt og ødela prøven!");
-
         }
        // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
         
