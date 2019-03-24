@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d930b00b6ce4d2c419e23a6f0c7fea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  antallTekst: {fileID: 2060794726}
+  tekst: {fileID: 2060794726}
   antall: 0
 --- !u!1 &70122819
 GameObject:
