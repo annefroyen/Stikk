@@ -20,24 +20,31 @@ public class snu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+            var z = Input.gyro.attitude.eulerAngles;
+
+        var rotation = Input.gyro.rotationRate;
+        //SetAntallTekst("z = " + z);
+
+        // SetAntallTekst("rotation = " + rotation);
+
+
         accelerationDir = Input.acceleration;
-       if (Input.acceleration.x < -0.1f)
+        var ny = Input.acceleration.z;
+        SetAntallTekst("grader" + ny);
+        if (ny < 180f)
         {
-            antall = antall + 1;
-            SetAntallTekst("Antall: " + antall);
+          antall = antall + 1;
+        //  SetAntallTekst("grader: " + ny);
         }
-
-
-        if(accelerationDir.sqrMagnitude >= 10f)
-        {
+       
+        if(accelerationDir.sqrMagnitude >= 10f){
             SetAntallTekst("Du ristet for hardt og ødela prøven!");
         }
-       // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
         
     }
 
-    void SetAntallTekst(string i)
-    {
+    void SetAntallTekst(string i){
         antallTekst.text = i;
     }
 }
