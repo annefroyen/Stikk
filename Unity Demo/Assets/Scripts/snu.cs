@@ -7,37 +7,32 @@ public class snu : MonoBehaviour
 {
 
     Vector3 accelerationDir;
-    public Text antallTekst;
+    public Text tekst;
     public int antall;
 
     private void Start()
     {
         antall = 0;
-        SetAntallTekst("antall snu: ");
-        //tall = GetComponent<Text>();
+        SetTekst("Tekst: ");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        accelerationDir = Input.acceleration;
-       if (Input.acceleration.x < -0.1f)
-        {
-            antall = antall + 1;
-            SetAntallTekst("Antall: " + antall);
-        }
 
+       // var eulerAngles = Input.gyro.attitude.eulerAngles;
+       // var rotationRate = Input.gyro.rotationRate;
+        var accelerationZ = Input.acceleration.z;
 
-        if(accelerationDir.sqrMagnitude >= 10f)
-        {
-            SetAntallTekst("Du ristet for hardt og ødela prøven!");
+        SetTekst("Acceleration.z: " + accelerationZ);
+
+        accelerationDir = Input.acceleration;  
+        if(accelerationDir.sqrMagnitude >= 10f){
+            SetTekst("Du ristet for hardt og ødela prøven!");
         }
-       // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
         
     }
 
-    void SetAntallTekst(string i)
-    {
-        antallTekst.text = i;
+    void SetTekst(string i){
+        tekst.text = i;
     }
 }
