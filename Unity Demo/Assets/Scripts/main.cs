@@ -8,6 +8,8 @@ public class main : MonoBehaviour
 {
     public Button kanyleKnapp;
     public Button staseKnapp;
+
+    public Text text;
     
     public bool stase;
     public bool kanyle;
@@ -21,6 +23,7 @@ public class main : MonoBehaviour
 
     void Start()
     {
+        SetTekst("Tekst");
         kanyle = false;
         stase = false;
         videoPlayer = GetComponent<VideoPlayer>();
@@ -31,8 +34,9 @@ public class main : MonoBehaviour
     void Update()
     {
         GetComponent<Renderer>().material.mainTexture = MovieTexture;
-        if (Input.GetButton("kanyle"))
+        if (Input.GetButtonDown("kanyle"))
         {
+            SetTekst("KANYLE TRYKKET");
             //kanyle er tyykt
             kanyle = true;
         }
@@ -45,16 +49,23 @@ void TaskOnClick()
         //spill video
         if (kanyle)
         {
+            SetTekst("Kanyle trykket");
             MovieTexture.Play();
             videoPlayer.Play();
             //spill video
-            if (kanyle)
+            if (stase)
             {
+                SetTekst("Stase trykket etter knayle");
                 //spill video
             }
         }
    
 }
+
+    void SetTekst(string i)
+    {
+        text.text = i;
+    }
 
 
 
