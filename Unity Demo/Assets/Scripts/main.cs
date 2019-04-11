@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class main : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class main : MonoBehaviour
     public bool bomull;
     public bool desinfeksjonsmiddel;
     public bool prøverør;
+
+    public VideoPlayer videoPlayer;
+    public RawImage rawImage;
 
     void Start()
     {
@@ -51,6 +55,8 @@ public class main : MonoBehaviour
             staseband = true;
             //vis video
             SetTekst("VIDEO STASE");
+            //
+           // SceneManager.LoadScene("finn vene");
         } else {
             SetTekst("Error!");
         }
@@ -76,6 +82,8 @@ public class main : MonoBehaviour
         {
             kanyle = true;
             SetTekst("VIDEO KANYLE");
+            rawImage.texture = videoPlayer.texture;
+            videoPlayer.Play();
         }
         else
         {
