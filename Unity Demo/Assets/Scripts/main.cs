@@ -28,6 +28,7 @@ public class main : MonoBehaviour
 
     void Start()
     {
+       
         SetTekst("Tekst");
         kanyle = false;
         staseband = false;
@@ -45,19 +46,33 @@ public class main : MonoBehaviour
 
     void Update()
     {
-
+        
+      
     }
 
 
     void stasebandKlikket()
     {
+
+        StartCoroutine(playVideo());
+
         if (!staseband) {
             staseband = true;
-            //vis video
+            StartCoroutine(playVideo());
             SetTekst("VIDEO STASE");
-            //
-           // SceneManager.LoadScene("finn vene");
-        } else {
+           
+              
+            
+
+
+            videoPlayer.loopPointReached += LoadScene;
+        
+        void LoadScene(VideoPlayer vp)
+        {
+            SceneManager.LoadScene("finn vene");
+        }
+
+    } else {
             SetTekst("Error!");
         }
 
@@ -133,6 +148,19 @@ public class main : MonoBehaviour
     void SetTekst(string i)
     {
         text.text = i;
+    }
+
+    IEnumerator playVideo()
+    {
+        videoPlayer.Prepare();
+        WaitForSeconds waitForSeconds = new WaitForSeconds(1);
+        while (!videoPlayer.isPrepared)
+        {
+            yield return waitForSeconds;
+            break;
+        }
+        rawImage.texture = videoPlayer.texture;
+        videoPlayer.Play();
     }
 }
 
