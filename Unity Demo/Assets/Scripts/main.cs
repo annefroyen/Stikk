@@ -53,19 +53,11 @@ public class main : MonoBehaviour
 
     void stasebandKlikket()
     {
-
-        StartCoroutine(playVideo());
-
         if (!staseband) {
             staseband = true;
-            StartCoroutine(playVideo());
             SetTekst("VIDEO STASE");
-           
-              
-            
-
-
-            videoPlayer.loopPointReached += LoadScene;
+            StartCoroutine(playVideo(500));
+           // videoPlayer.loopPointReached += LoadScene;
         
         void LoadScene(VideoPlayer vp)
         {
@@ -83,6 +75,7 @@ public class main : MonoBehaviour
         {
             desinfeksjonsmiddel = true;
             SetTekst("VIDEO DESINFEKSJON");
+            StartCoroutine(playVideo(1000));
         }
         else
         {
@@ -97,8 +90,7 @@ public class main : MonoBehaviour
         {
             kanyle = true;
             SetTekst("VIDEO KANYLE");
-            rawImage.texture = videoPlayer.texture;
-            videoPlayer.Play();
+            StartCoroutine(playVideo(1500));
         }
         else
         {
@@ -150,7 +142,7 @@ public class main : MonoBehaviour
         text.text = i;
     }
 
-    IEnumerator playVideo()
+    IEnumerator playVideo(int x)
     {
         videoPlayer.Prepare();
         WaitForSeconds waitForSeconds = new WaitForSeconds(1);
@@ -160,6 +152,7 @@ public class main : MonoBehaviour
             break;
         }
         rawImage.texture = videoPlayer.texture;
+        videoPlayer.frame = x;
         videoPlayer.Play();
     }
 }
