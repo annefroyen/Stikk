@@ -7,19 +7,17 @@ public class vibrer : MonoBehaviour
 {
 
     public Button veneKnapp;
+    public AudioSource puls;
     // Start is called before the first frame update
     void Start()
     {
-
+        puls = GetComponent<AudioSource>();
+        
         veneKnapp.onClick.AddListener(veneKlikket);
 
     }
 
-    public void viber()
-    {
-        Handheld.Vibrate();
-    }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -28,8 +26,11 @@ public class vibrer : MonoBehaviour
 
     void veneKlikket()
     {
+
         //lyd
+        puls.Play(0);
         //vibrasjon
+        Handheld.Vibrate();
         //"du fann rett vene!"
         //load new scene
 
