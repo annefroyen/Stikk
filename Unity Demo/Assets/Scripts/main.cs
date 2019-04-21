@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
+
 public class main : MonoBehaviour
 {
     public Button kanyleKnapp;
@@ -24,24 +25,44 @@ public class main : MonoBehaviour
     public bool prøverør;
 
     public VideoPlayer videoPlayer;
+    public VideoSource videòSource;
+    public VideoClip stramStaseVideo;
+    public VideoClip slakkstaseVideo;
+    public VideoClip desinfiserVideo;
+    public VideoClip stikkVideo;
+    public VideoClip blåttPrøverørVideo;
+    public VideoClip rødtPrøverørVideo;
+    public VideoClip bomullVideo;
+    public VideoClip teipVideo;
+    public VideoClip monterKanyleVideo;
+
+    public AudioSource audioSource;
+
     public RawImage rawImage;
+
+    public GameObject blockerPanel;
+
 
     void Start()
     {
        
         SetTekst("Tekst");
+
         kanyle = false;
         staseband = false;
         teip = false;
         bomull = false;
         desinfeksjonsmiddel = false;
         prøverør = false;
+
         kanyleKnapp.onClick.AddListener(kanyleKlikket);
         stasebandKnapp.onClick.AddListener(stasebandKlikket);
         desinfeksjonsmiddelKnapp.onClick.AddListener(desinfeksjonsmiddelKlikket);
         prøverørKnapp.onClick.AddListener(prøverørKlikket);
         bomullKnapp.onClick.AddListener(bomullKlikket);
         teipKnapp.onClick.AddListener(teipKlikket);
+
+        blockerPanel.SetActive(false);
     }
 
     void Update()
@@ -56,7 +77,9 @@ public class main : MonoBehaviour
         if (!staseband) {
             staseband = true;
             SetTekst("VIDEO STASE");
-            StartCoroutine(playVideo(500));
+
+            StartCoroutine(playVideo(stramStaseVideo));
+
            // videoPlayer.loopPointReached += LoadScene;
         
         void LoadScene(VideoPlayer vp)
@@ -75,7 +98,8 @@ public class main : MonoBehaviour
         {
             desinfeksjonsmiddel = true;
             SetTekst("VIDEO DESINFEKSJON");
-            StartCoroutine(playVideo(1000));
+            StartCoroutine(playVideo(desinfiserVideo));
+        
         }
         else
         {
@@ -90,7 +114,7 @@ public class main : MonoBehaviour
         {
             kanyle = true;
             SetTekst("VIDEO KANYLE");
-            StartCoroutine(playVideo(1500));
+            StartCoroutine(playVideo(stikkVideo));
         }
         else
         {
@@ -104,6 +128,7 @@ public class main : MonoBehaviour
         {
             prøverør = true;
             SetTekst("VIDEO PRØVERØR");
+            StartCoroutine(playVideo(blåttPrøverørVideo));
         }
         else
         {
@@ -116,6 +141,7 @@ public class main : MonoBehaviour
         {
             bomull = true;
             SetTekst("VIDEO BOMULL");
+            StartCoroutine(playVideo(bomullVideo));
         }
         else
         {
@@ -129,6 +155,7 @@ public class main : MonoBehaviour
         {
             teip = true;
             SetTekst("VIDEO TEIP");
+            StartCoroutine(playVideo(teipVideo));
         }
         else
         {
@@ -142,8 +169,22 @@ public class main : MonoBehaviour
         text.text = i;
     }
 
-    IEnumerator playVideo(int x)
+    IEnumerator playVideo(VideoClip videoClip)
     {
+
+
+
+
+        blockerPanel.SetActive(true);
+
+      //  videoPlayer = gameObject.AddComponent<VideoPlayer>();
+      //  audioSource = gameObject.AddComponent<AudioSource>();
+
+        videoPlayer.source = VideoSource.VideoClip;
+        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+
+        videoPlayer.clip = videoClip;
+
         videoPlayer.Prepare();
         WaitForSeconds waitForSeconds = new WaitForSeconds(1);
         while (!videoPlayer.isPrepared)
@@ -152,8 +193,17 @@ public class main : MonoBehaviour
             break;
         }
         rawImage.texture = videoPlayer.texture;
-        videoPlayer.frame = x;
         videoPlayer.Play();
+
+
+
+        videoPlayer.loopPointReached += setInactive;
+
+        void setInactive(VideoPlayer vp)
+        {
+            blockerPanel.SetActive(false);
+        }
+
     }
 }
 
