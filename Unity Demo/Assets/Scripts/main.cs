@@ -68,9 +68,9 @@ public class main : MonoBehaviour
     void Update()
     {
 
-        while (!videoPlayer.isPlaying)
+       // while (!videoPlayer.isPlaying)
         {
-            blockerPanel.SetActive(false);
+       //     blockerPanel.SetActive(false);
         }
 
     }
