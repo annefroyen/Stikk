@@ -67,8 +67,12 @@ public class main : MonoBehaviour
 
     void Update()
     {
-        
-      
+
+        while (!videoPlayer.isPlaying)
+        {
+            blockerPanel.SetActive(false);
+        }
+
     }
 
 
@@ -110,7 +114,7 @@ public class main : MonoBehaviour
 
     void kanyleKlikket()
     {
-        if (staseband && desinfeksjonsmiddel && !kanyle)
+        if (desinfeksjonsmiddel && !kanyle)
         {
             kanyle = true;
             SetTekst("VIDEO KANYLE");
@@ -124,7 +128,7 @@ public class main : MonoBehaviour
 
     void prøverørKlikket() {
 
-        if(staseband && desinfeksjonsmiddel && kanyle && !prøverør)
+        if(kanyle && !prøverør)
         {
             prøverør = true;
             SetTekst("VIDEO PRØVERØR");
@@ -137,7 +141,7 @@ public class main : MonoBehaviour
     }
 
     void bomullKlikket() {
-        if (staseband && desinfeksjonsmiddel && kanyle && prøverør && !bomull)
+        if (prøverør && !bomull)
         {
             bomull = true;
             SetTekst("VIDEO BOMULL");
@@ -151,7 +155,7 @@ public class main : MonoBehaviour
     }
 
     void teipKlikket() {
-        if (staseband && desinfeksjonsmiddel && kanyle && prøverør && bomull && !teip)
+        if (bomull && !teip)
         {
             teip = true;
             SetTekst("VIDEO TEIP");
@@ -172,13 +176,7 @@ public class main : MonoBehaviour
     IEnumerator playVideo(VideoClip videoClip)
     {
 
-
-
-
-        blockerPanel.SetActive(true);
-
-      //  videoPlayer = gameObject.AddComponent<VideoPlayer>();
-      //  audioSource = gameObject.AddComponent<AudioSource>();
+       blockerPanel.SetActive(true);
 
         videoPlayer.source = VideoSource.VideoClip;
         videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
@@ -194,15 +192,23 @@ public class main : MonoBehaviour
         }
         rawImage.texture = videoPlayer.texture;
         videoPlayer.Play();
+        Debug.Log("har spillt video");
 
-
-
+       
         videoPlayer.loopPointReached += setInactive;
 
         void setInactive(VideoPlayer vp)
         {
             blockerPanel.SetActive(false);
+            Debug.Log("setactive false");
         }
+
+        while(!videoPlayer.isPlaying)
+        {
+            blockerPanel.SetActive(false);
+        }
+
+        Debug.Log("s");
 
     }
 }
