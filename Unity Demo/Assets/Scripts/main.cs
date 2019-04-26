@@ -10,12 +10,19 @@ public class main : MonoBehaviour
 {
     public Button kanyleKnapp;
     public Button stasebandKnapp;
+    public Button staseKnapp;
     public Button teipKnapp;
     public Button bomullKnapp;
     public Button desinfeksjonsmiddelKnapp;
-    public Button prøverørKnapp;
+    public Button blåKnapp;
+    public Button rødKnapp;
+    public Button grønnKnapp;
+    public Button gulKnapp;
+    public Button lillaKnapp;
+    public Button sortKnapp;
 
     public Text text;
+    public Text staseKnappTekst;
 
     public bool kanyle;
     public bool staseband;
@@ -23,14 +30,26 @@ public class main : MonoBehaviour
     public bool bomull;
     public bool desinfeksjonsmiddel;
     public bool prøverør;
+    public bool blå;
+    public bool rød;
+    public bool grønn;
+    public bool gul;
+    public bool lilla;
+    public bool sort;
+
 
     public VideoPlayer videoPlayer;
     public VideoSource videòSource;
     public VideoClip stramStaseVideo;
-    public VideoClip slakkstaseVideo;
+    public VideoClip slakkStaseVideo;
     public VideoClip desinfiserVideo;
     public VideoClip stikkVideo;
-    public VideoClip blåttPrøverørVideo;
+    public VideoClip blåVideo;
+    public VideoClip gulVideo;
+    public VideoClip rødVideo;
+    public VideoClip lillaVideo;
+    public VideoClip sortVideo;
+    public VideoClip grønnVideo;
     public VideoClip rødtPrøverørVideo;
     public VideoClip bomullVideo;
     public VideoClip teipVideo;
@@ -54,11 +73,24 @@ public class main : MonoBehaviour
         bomull = false;
         desinfeksjonsmiddel = false;
         prøverør = false;
+        blå = false;
+        gul = false;
+        rød = false;
+        sort = false;
+        lilla = false;
+        grønn = false;
 
         kanyleKnapp.onClick.AddListener(kanyleKlikket);
         stasebandKnapp.onClick.AddListener(stasebandKlikket);
+        staseKnapp.onClick.AddListener(staseKnappKlikket);
         desinfeksjonsmiddelKnapp.onClick.AddListener(desinfeksjonsmiddelKlikket);
-        prøverørKnapp.onClick.AddListener(prøverørKlikket);
+        blåKnapp.onClick.AddListener(blåKlikket);
+        rødKnapp.onClick.AddListener(rødKlikket);
+        gulKnapp.onClick.AddListener(gulKlikket);
+        grønnKnapp.onClick.AddListener(grønnKlikket);
+        lillaKnapp.onClick.AddListener(lillaKlikket);
+        sortKnapp.onClick.AddListener(sortKlikket);
+
         bomullKnapp.onClick.AddListener(bomullKlikket);
         teipKnapp.onClick.AddListener(teipKlikket);
 
@@ -68,10 +100,7 @@ public class main : MonoBehaviour
     void Update()
     {
 
-       // while (!videoPlayer.isPlaying)
-        {
-       //     blockerPanel.SetActive(false);
-        }
+      
 
     }
 
@@ -84,9 +113,11 @@ public class main : MonoBehaviour
 
             StartCoroutine(playVideo(stramStaseVideo));
 
-           // videoPlayer.loopPointReached += LoadScene;
-        
-        void LoadScene(VideoPlayer vp)
+           
+
+            // videoPlayer.loopPointReached += LoadScene;
+
+            void LoadScene(VideoPlayer vp)
         {
             SceneManager.LoadScene("finn vene");
         }
@@ -119,6 +150,9 @@ public class main : MonoBehaviour
             kanyle = true;
             SetTekst("VIDEO KANYLE");
             StartCoroutine(playVideo(stikkVideo));
+
+
+
         }
         else
         {
@@ -126,13 +160,91 @@ public class main : MonoBehaviour
         }
     }
 
-    void prøverørKlikket() {
+   
 
-        if(kanyle && !prøverør)
+    void blåKlikket()
+    {
+
+        if (kanyle && !blå)
         {
-            prøverør = true;
-            SetTekst("VIDEO PRØVERØR");
-            StartCoroutine(playVideo(blåttPrøverørVideo));
+            blå = true;
+            SetTekst("VIDEO BLÅ");
+            StartCoroutine(playVideo(blåVideo));
+        }
+        else
+        {
+            SetTekst("error!");
+        }
+    }
+
+    void rødKlikket()
+    {
+
+        if (blå && !rød)
+        {
+            rød = true;
+            SetTekst("VIDEO RØD");
+            StartCoroutine(playVideo(rødVideo));
+        }
+        else
+        {
+            SetTekst("error!");
+        }
+    }
+
+    void gulKlikket()
+    {
+
+        if (rød && !gul)
+        {
+            gul = true;
+            SetTekst("VIDEO GUL");
+            StartCoroutine(playVideo(gulVideo));
+        }
+        else
+        {
+            SetTekst("error!");
+        }
+    }
+
+    void grønnKlikket()
+    {
+
+        if (gul && !grønn)
+        {
+            grønn = true;
+            SetTekst("VIDEO GRØNN");
+            StartCoroutine(playVideo(grønnVideo));
+        }
+        else
+        {
+            SetTekst("error!");
+        }
+    }
+
+    void lillaKlikket()
+    {
+
+        if (grønn && !lilla)
+        {
+            lilla = true;
+            SetTekst("VIDEO LILLA");
+            StartCoroutine(playVideo(lillaVideo));
+        }
+        else
+        {
+            SetTekst("error!");
+        }
+    }
+
+    void sortKlikket()
+    {
+
+        if (lilla && !sort)
+        {
+            sort = true;
+            SetTekst("VIDEO SORT");
+            StartCoroutine(playVideo(sortVideo));
         }
         else
         {
@@ -167,7 +279,34 @@ public class main : MonoBehaviour
         }
 
     }
-   
+
+
+    void staseKnappKlikket()
+    {
+        if (!staseband)
+        {
+            staseband = true;
+            SetTekst("VIDEO STRAM");
+            StartCoroutine(playVideo(stramStaseVideo));
+            staseKnappTekst.text = "Slakk stase";
+        
+        }
+
+        if(staseband)
+        {
+            staseband = false;
+            SetTekst("Video slakk");
+            StartCoroutine(playVideo(slakkStaseVideo));
+            staseKnappTekst.text = "Stram stase";
+            
+            
+
+
+        }
+
+    }
+
+
     void SetTekst(string i)
     {
         text.text = i;
@@ -176,7 +315,7 @@ public class main : MonoBehaviour
     IEnumerator playVideo(VideoClip videoClip)
     {
 
-       blockerPanel.SetActive(true);
+      // blockerPanel.SetActive(true);
 
         videoPlayer.source = VideoSource.VideoClip;
         videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
@@ -192,23 +331,7 @@ public class main : MonoBehaviour
         }
         rawImage.texture = videoPlayer.texture;
         videoPlayer.Play();
-        Debug.Log("har spillt video");
-
        
-        videoPlayer.loopPointReached += setInactive;
-
-        void setInactive(VideoPlayer vp)
-        {
-            blockerPanel.SetActive(false);
-            Debug.Log("setactive false");
-        }
-
-        while(!videoPlayer.isPlaying)
-        {
-            blockerPanel.SetActive(false);
-        }
-
-        Debug.Log("s");
 
     }
 }
