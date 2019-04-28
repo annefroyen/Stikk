@@ -3,33 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighScore : MonoBehaviour
+public class Resultat : MonoBehaviour
 {
 
-    public Text hsTekst;
     public Text ssTekst;
+    public Text nyHighscore;
     int highscore;
     int spillscore;
+    
 
-
-    // Start is called before the first frame update
     void Start()
     {
+       
+        spillscore = PlayerPrefs.GetInt("Spillscore");
+        highscore = PlayerPrefs.GetInt("Highscore");
+        
+
         if (spillscore > highscore)
         {
             PlayerPrefs.SetInt("Highscore", spillscore);
+            nyHighscore.text = "Ny highscore!";  
         }
-        highscore = PlayerPrefs.GetInt("Highscore");
-        spillscore = PlayerPrefs.GetInt("Spillscore");
-        hsTekst.text = highscore.ToString();
-        ssTekst.text = spillscore.ToString();
+     
 
-        
+        ssTekst.text = spillscore.ToString();
+      
+            
+
     }
 
     // Update is called once per frame
     void Update()
     {
     }
+
+
+    
      
 }

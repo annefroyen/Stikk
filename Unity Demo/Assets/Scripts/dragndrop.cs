@@ -38,8 +38,7 @@ public class dragndrop : MonoBehaviour
   // Update is called once per frame
     void Update()
     {
-        poengTekst.text = poeng.ToString();
-        PlayerPrefs.SetInt("Spillscore", poeng);
+        poengTekst.text = PlayerPrefs.GetInt("Spillscore").ToString();
 
     }
 
@@ -105,7 +104,8 @@ public class dragndrop : MonoBehaviour
             rødEtikett.transform.position = rødtRør.transform.position;
             rødtRør.GetComponent<Image>().sprite = rødtRørMedEtikett;
             rødEtikett.SetActive(false);
-            poeng++;
+           // poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             plussPoeng = true;
 
         }
@@ -113,7 +113,9 @@ public class dragndrop : MonoBehaviour
         {
             rødEtikett.transform.position = rødEtikettPos;
             minusPoeng = true;
-            poeng--;
+
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            //poeng--;
         }
     }
 
@@ -125,13 +127,15 @@ public class dragndrop : MonoBehaviour
             blåEtikett.transform.position = blåttRør.transform.position;
             blåttRør.GetComponent<Image>().sprite = blåttRørMedEtikett;
             blåEtikett.SetActive(false);
-            poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+           // poeng++;
 
         }
         else
         {
             blåEtikett.transform.position = blåEtikettPos;
-            poeng--;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            //poeng--;
         }
     }
 
@@ -143,13 +147,15 @@ public class dragndrop : MonoBehaviour
             lillaEtikett.transform.position = lillaRør.transform.position;
             lillaRør.GetComponent<Image>().sprite = lillaRørMedEtikett;
             lillaEtikett.SetActive(false);
-            poeng++;
+           // poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
 
         }
         else
         {
             lillaEtikett.transform.position = lillaEtikettPos;
-            poeng--;
+            //poeng--;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
         }
     }
 
@@ -161,13 +167,15 @@ public class dragndrop : MonoBehaviour
             gulEtikett.transform.position = gultRør.transform.position;
             gultRør.GetComponent<Image>().sprite = gultRørMedEtikett;
             gulEtikett.SetActive(false);
-            poeng++;
+            //  poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
 
         }
         else
         {
             gulEtikett.transform.position = gulEtikettPos;
-            poeng--;
+            //poeng--;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
         }
     }
 
@@ -179,13 +187,15 @@ public class dragndrop : MonoBehaviour
             sortEtikett.transform.position = sortRør.transform.position;
             sortRør.GetComponent<Image>().sprite = sortRørMedEtikett;
             sortEtikett.SetActive(false);
-            poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            //poeng++;
 
         }
         else
         {
             sortEtikett.transform.position = sortEtikettPos;
-            poeng--;
+           // poeng--;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
         }
     }
 
@@ -197,13 +207,15 @@ public class dragndrop : MonoBehaviour
             grønnEtikett.transform.position = grøntRør.transform.position;
             grøntRør.GetComponent<Image>().sprite = grøntRørMedEtikett;
             grønnEtikett.SetActive(false);
-            poeng++;
+           // poeng++;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
 
         }
         else
         {
             grønnEtikett.transform.position = grønnEtikettPos;
-            poeng--;
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+           // poeng--;
         }
     }
 
