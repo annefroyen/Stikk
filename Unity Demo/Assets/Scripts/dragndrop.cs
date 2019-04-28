@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class dragndrop : MonoBehaviour
 {
 
-
     public GameObject rødEtikett, blåEtikett, lillaEtikett, gulEtikett, sortEtikett, grønnEtikett;
     public Button rødtRør, blåttRør, lillaRør, gultRør, sortRør, grøntRør;
     Vector2 rødEtikettPos, blåEtikettPos, lillaEtikettPos, gulEtikettPos, sortEtikettPos, grønnEtikettPos;
@@ -16,9 +15,13 @@ public class dragndrop : MonoBehaviour
 
     public bool minusPoeng, plussPoeng;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("Spillscore", 0);
+
         rødEtikettPos = rødEtikett.transform.position;
         blåEtikettPos = blåEtikett.transform.position;
         lillaEtikettPos = lillaEtikett.transform.position;
@@ -36,6 +39,7 @@ public class dragndrop : MonoBehaviour
     void Update()
     {
         poengTekst.text = poeng.ToString();
+        PlayerPrefs.SetInt("Spillscore", poeng);
 
     }
 
