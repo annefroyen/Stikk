@@ -23,6 +23,7 @@ public class main : MonoBehaviour
 
     public Text text;
     public Text staseKnappTekst;
+    public Text poengTekst;
 
     public bool kanyle;
     public bool staseband;
@@ -94,13 +95,15 @@ public class main : MonoBehaviour
         bomullKnapp.onClick.AddListener(bomullKlikket);
         teipKnapp.onClick.AddListener(teipKlikket);
 
+        
+
         blockerPanel.SetActive(false);
     }
 
     void Update()
     {
+        poengTekst.text = PlayerPrefs.GetInt("Spillscore").ToString();
 
-      
 
     }
 
@@ -109,7 +112,7 @@ public class main : MonoBehaviour
     {
         if (!staseband) {
             staseband = true;
-            SetTekst("VIDEO STASE");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
 
             StartCoroutine(playVideo(stramStaseVideo));
 
@@ -123,7 +126,9 @@ public class main : MonoBehaviour
         }
 
     } else {
-            SetTekst("Error!");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+
+
         }
 
     }
@@ -132,7 +137,7 @@ public class main : MonoBehaviour
         if (staseband && !desinfeksjonsmiddel)
         {
             desinfeksjonsmiddel = true;
-            SetTekst("VIDEO DESINFEKSJON");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(desinfiserVideo));
         
         }
@@ -148,7 +153,7 @@ public class main : MonoBehaviour
         if (desinfeksjonsmiddel && !kanyle)
         {
             kanyle = true;
-            SetTekst("VIDEO KANYLE");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(stikkVideo));
 
 
@@ -168,7 +173,7 @@ public class main : MonoBehaviour
         if (kanyle && !blå)
         {
             blå = true;
-            SetTekst("VIDEO BLÅ");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(blåVideo));
         }
         else
@@ -183,7 +188,7 @@ public class main : MonoBehaviour
         if (blå && !rød)
         {
             rød = true;
-            SetTekst("VIDEO RØD");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(rødVideo));
         }
         else
@@ -198,7 +203,7 @@ public class main : MonoBehaviour
         if (rød && !gul)
         {
             gul = true;
-            SetTekst("VIDEO GUL");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(gulVideo));
         }
         else
@@ -213,7 +218,7 @@ public class main : MonoBehaviour
         if (gul && !grønn)
         {
             grønn = true;
-            SetTekst("VIDEO GRØNN");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(grønnVideo));
         }
         else
@@ -228,7 +233,7 @@ public class main : MonoBehaviour
         if (grønn && !lilla)
         {
             lilla = true;
-            SetTekst("VIDEO LILLA");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(lillaVideo));
         }
         else
@@ -243,7 +248,7 @@ public class main : MonoBehaviour
         if (lilla && !sort)
         {
             sort = true;
-            SetTekst("VIDEO SORT");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(sortVideo));
         }
         else
@@ -256,7 +261,7 @@ public class main : MonoBehaviour
         if (prøverør && !bomull)
         {
             bomull = true;
-            SetTekst("VIDEO BOMULL");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(bomullVideo));
         }
         else
@@ -270,7 +275,7 @@ public class main : MonoBehaviour
         if (bomull && !teip)
         {
             teip = true;
-            SetTekst("VIDEO TEIP");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(teipVideo));
         }
         else
@@ -286,7 +291,7 @@ public class main : MonoBehaviour
         if (!staseband)
         {
             staseband = true;
-            SetTekst("VIDEO STRAM");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(stramStaseVideo));
             staseKnappTekst.text = "Slakk stase";
         
@@ -295,7 +300,7 @@ public class main : MonoBehaviour
         if(staseband)
         {
             staseband = false;
-            SetTekst("Video slakk");
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             StartCoroutine(playVideo(slakkStaseVideo));
             staseKnappTekst.text = "Stram stase";
             
