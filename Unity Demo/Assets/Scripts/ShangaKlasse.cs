@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ShangaKlasse : MonoBehaviour
 {
+
+
+    /*
     public Button blå;
     public Button rød;
     public Button kanyle;
@@ -66,5 +69,7 @@ public class ShangaKlasse : MonoBehaviour
             text.gameObject.active = !text.gameObject.active;
         }
     }
+
+    */
 
 }

@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class changeText : MonoBehaviour
 {
     public Texture textshowed = null;
-    public void changeword String(word);
-    {
-    textshowed.text = word;
-    }
+   // public void changeword String(word){
+   // textshowed.text = word;
+   // }
 }
