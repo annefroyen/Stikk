@@ -14,6 +14,7 @@ public class vibrer : MonoBehaviour
         puls = GetComponent<AudioSource>();
         
         veneKnapp.onClick.AddListener(veneKlikket);
+        Handheld.Vibrate();
 
     }
 
