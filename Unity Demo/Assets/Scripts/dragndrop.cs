@@ -7,6 +7,7 @@ public class dragndrop : MonoBehaviour
 {
 
     public GameObject rødEtikett, blåEtikett, lillaEtikett, gulEtikett, sortEtikett, grønnEtikett;
+    public GameObject rødKnappObjekt, blåKnappObjekt, lillaKnappObjekt, gulKnappObjekt, sortKnappObjekt, grønnKnappObjekt;
     public Button rødtRør, blåttRør, lillaRør, gultRør, sortRør, grøntRør;
     Vector2 rødEtikettPos, blåEtikettPos, lillaEtikettPos, gulEtikettPos, sortEtikettPos, grønnEtikettPos;
     public Sprite rødtRørMedEtikett, blåttRørMedEtikett, lillaRørMedEtikett, gultRørMedEtikett, sortRørMedEtikett, grøntRørMedEtikett;
@@ -20,7 +21,7 @@ public class dragndrop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("Spillscore", 0);
+        
 
         rødEtikettPos = rødEtikett.transform.position;
         blåEtikettPos = blåEtikett.transform.position;
@@ -33,6 +34,8 @@ public class dragndrop : MonoBehaviour
         plussPoeng = false;
 
         StartCoroutine(poengFarge());
+
+        seEtterRekvisisjon();
     }
 
   // Update is called once per frame
@@ -219,11 +222,55 @@ public class dragndrop : MonoBehaviour
         }
     }
 
- 
+
     // private void OnMouseOver()
     //{
     //    rør1.Select();
     //}
+
+
+    public void seEtterRekvisisjon()
+    {
+
+        int rekNr = PlayerPrefs.GetInt("Rekvisisjon");
+
+        switch (rekNr)
+        {
+            case 1:
+                //Kari
+                rødKnappObjekt.SetActive(true);
+                rødEtikett.SetActive(true);
+                lillaKnappObjekt.SetActive(true);
+                lillaEtikett.SetActive(true);
+                sortKnappObjekt.SetActive(true);
+                sortEtikett.SetActive(true);
+                break;
+
+            case 2:
+                //Ola
+                blåKnappObjekt.SetActive(true);
+                blåEtikett.SetActive(true);
+                rødKnappObjekt.SetActive(true);
+                rødEtikett.SetActive(true);
+                lillaKnappObjekt.SetActive(true);
+                lillaEtikett.SetActive(true);
+                break;
+
+            case 3:
+                //linda
+                blåKnappObjekt.SetActive(true);
+                blåEtikett.SetActive(true);
+                gulKnappObjekt.SetActive(true);
+                gulEtikett.SetActive(true);
+                grønnKnappObjekt.SetActive(true);
+                grønnEtikett.SetActive(true);
+                break;
+
+            default:
+                break;
+
+        }
+    }
 
 
 

@@ -2,32 +2,100 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class snu : MonoBehaviour
 {
 
     Vector3 accelerationDir;
+
+
+    public GameObject rødtRør, blåttRør, gultRør, sortRør, lillaRør, grøntRør;
     public Text tekst;
-    public int antall;
+    public Text antall;
+    public int antallSnu;
+    bool snudd;
+    private string farge;
 
     private void Start()
     {
-        antall = 0;
-        SetTekst("Tekst: ");
+        snudd = false;
+        antallSnu = 10;
+        SetTekst(farge);
+        //farge = PlayerPrefs.GetString("Farge");
+
+
+        switch (farge)
+        {
+            case "blå":
+                blåttRør.SetActive(true);
+                PlayerPrefs.SetInt("BlåStatus", 1);
+                break;
+
+            case "rød":
+                rødtRør.SetActive(true);
+                PlayerPrefs.SetInt("RødStatus", 1);
+                break;
+
+            case "lilla":
+                lillaRør.SetActive(true);
+                PlayerPrefs.SetInt("LillaStatus", 1);
+                break;
+
+            case "grønn":
+                grøntRør.SetActive(true);
+                PlayerPrefs.SetInt("GrønnStatus", 1);
+                break;
+
+            case "gul":
+                gultRør.SetActive(true);
+                PlayerPrefs.SetInt("GulStatus", 1);
+                break;
+
+            case "sort":
+                sortRør.SetActive(true);
+                PlayerPrefs.SetInt("SortStatus", 1);
+                break;
+
+            default:
+                break;
+
+        }
+
     }
 
     void Update()
     {
+        var accelerationx = Input.acceleration.x;
 
-       // var eulerAngles = Input.gyro.attitude.eulerAngles;
-       // var rotationRate = Input.gyro.rotationRate;
-        var accelerationZ = Input.acceleration.z;
+        if(accelerationx > 0.9 && antallSnu > 0)
+        {
+            
+            snudd = false;
+        }
 
-        SetTekst("Acceleration.z: " + accelerationZ);
+        if (snudd == false)
+        {
+            if (accelerationx < -0.9 && antallSnu > 0)
+            {
+               
+                snudd = true;
+                antallSnu--;
+                antall.text = antallSnu.ToString();
+            }
+
+            if (antallSnu == 0)
+            {
+                
+                SceneManager.LoadScene("MainTest");
+                
+            }
+
+        }
 
         accelerationDir = Input.acceleration;  
-        if(accelerationDir.sqrMagnitude >= 10f){
-            SetTekst("Du ristet for hardt og ødela prøven!");
+        if(accelerationDir.sqrMagnitude >= 20f){
+            antall.text = ("Du ristet for hardt og ødela prøven!");
         }
         
     }
