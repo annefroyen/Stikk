@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Håndhygiene : MonoBehaviour
+public class Quiz : MonoBehaviour
 {
 
     public Text poengTekst;
 
-    public Button FemtenKnapp;
-    public Button TrettiKnapp;
-    public Button MinuttKnapp;
+    public Button rettKnapp;
+    public Button feilEnKnapp;
+    public Button feilToKnapp;
 
     public AudioSource feilTone;
     public AudioSource rettTone;
@@ -21,38 +21,40 @@ public class Håndhygiene : MonoBehaviour
     private bool nyRett;
     private bool nyFeil;
 
+    public string nesteScene;
+
     void Start()
     {
         nyRett = false;
         nyFeil = false;
-        FemtenKnapp.onClick.AddListener(FemtenKlikket);
-        TrettiKnapp.onClick.AddListener(TrettiKlikket);
-        MinuttKnapp.onClick.AddListener(MinuttKlikket);
+        feilEnKnapp.onClick.AddListener(FeilEnKlikket);
+        feilToKnapp.onClick.AddListener(FeilToKlikket);
+        rettKnapp.onClick.AddListener(RettKlikket);
     }
     
     void Update()
     {
         poengTekst.text = PlayerPrefs.GetInt("Spillscore").ToString();
         StartCoroutine(poengFarge());
-        StartCoroutine(ventPaaNesteScene());
+        StartCoroutine(ventPaaNesteScene(nesteScene));
     }
 
 
-    public void FemtenKlikket()
+    public void FeilEnKlikket()
     {
         PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
         nyFeil = true;
         feilTone.Play();
     }
 
-    public void TrettiKlikket()
+    public void FeilToKlikket()
     {
         PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
         nyFeil = true;
         feilTone.Play();
     }
 
-    public void MinuttKlikket()
+    public void RettKlikket()
     {
         PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
         nyRett = true;
@@ -83,13 +85,13 @@ public class Håndhygiene : MonoBehaviour
         }
     }
 
-    private IEnumerator ventPaaNesteScene()
+    public IEnumerator ventPaaNesteScene(string scene)
     {
 
         if (nyRett)
         {
             yield return new WaitForSeconds(1);
-            SceneManager.LoadScene("Rekvisisjon");
+            SceneManager.LoadScene(scene);
         }
 
 

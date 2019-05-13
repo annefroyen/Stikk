@@ -31,6 +31,13 @@ public class StartSide : MonoBehaviour
         PlayerPrefs.SetInt("DesinfeksjonBrukt", 0);
         PlayerPrefs.SetInt("StaseBrukt", 0);
 
+
+        int førsteKjøring = PlayerPrefs.GetInt("FørsteKjøring");
+
+        if (førsteKjøring == 0) {
+            førsteKjøring = 1;
+        }
+
     }
 
     // Update is called once per frame

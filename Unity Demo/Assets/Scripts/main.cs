@@ -40,8 +40,6 @@ public class main : MonoBehaviour
     private bool nyRett;
     private bool nyFeil;
 
-
-
     public VideoPlayer videoPlayer;
     public VideoSource videòSource;
     public VideoClip stramStaseVideo;
@@ -61,7 +59,6 @@ public class main : MonoBehaviour
 
     public AudioSource feilTone;
     public AudioSource rettTone;
-
 
     public RawImage rawImage;
 
@@ -93,15 +90,10 @@ public class main : MonoBehaviour
     public Sprite sortSprite;
     public Sprite grønnSprite;
 
-
-
-
     void Start()
     {
 
         SetTekst("Tekst");
-
-
 
         blåKnappObjekt.GetComponent<Image>().sprite = blåSprite;
         rødKnappObjekt.GetComponent<Image>().sprite = rødSprite;
