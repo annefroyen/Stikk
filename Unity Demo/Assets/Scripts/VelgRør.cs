@@ -241,6 +241,7 @@ public class VelgRør : MonoBehaviour
                 blå = true;
                 gul = true;
                 grønn = true;
+                lilla = true;
                 break;
 
             default:

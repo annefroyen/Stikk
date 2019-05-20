@@ -18,9 +18,10 @@ public class StartSide : MonoBehaviour
     {
         highscore = PlayerPrefs.GetInt("Highscore");
         hsTekst.text = highscore.ToString();
-        resetKnapp.onClick.AddListener(resetHighScore);
+        resetKnapp.onClick.AddListener(resetSpill);
 
         PlayerPrefs.SetInt("Spillscore", 0);
+        PlayerPrefs.SetInt("StaseknappBrukt", 0);
         PlayerPrefs.SetInt("LillaBrukt", 0);
         PlayerPrefs.SetInt("RødBrukt", 0);
         PlayerPrefs.SetInt("BlåBrukt", 0);
@@ -32,11 +33,7 @@ public class StartSide : MonoBehaviour
         PlayerPrefs.SetInt("StaseBrukt", 0);
 
 
-        int førsteKjøring = PlayerPrefs.GetInt("FørsteKjøring");
-
-        if (førsteKjøring == 0) {
-            førsteKjøring = 1;
-        }
+     
 
     }
 
@@ -46,10 +43,11 @@ public class StartSide : MonoBehaviour
 
     }
 
-    public void resetHighScore()
+    public void resetSpill()
     {
         PlayerPrefs.SetInt("Highscore", 0);
         hsTekst.text = "0";
+        PlayerPrefs.SetInt("FørsteKjøring", 0);
 
     }
 

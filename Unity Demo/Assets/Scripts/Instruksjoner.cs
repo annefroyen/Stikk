@@ -17,6 +17,7 @@ public class Instruksjoner : MonoBehaviour
         {
             instruksjoner.SetActive(true);
         }
+       
     }
 
     // Update is called once per frame

@@ -17,12 +17,22 @@ public class snu : MonoBehaviour
     bool snudd;
     private string farge;
 
+    public Text spillscore;
+    public Image poengPanel;
+    private bool nyRett;
+    private bool nyFeil;
+    public AudioSource rettTone;
+    public AudioSource feilTone;
+
+   
     private void Start()
     {
         snudd = false;
-        antallSnu = 10;
+        nyRett = false;
+        nyFeil = false;
+        antallSnu = 6;
         SetTekst(farge);
-        //farge = PlayerPrefs.GetString("Farge");
+        farge = PlayerPrefs.GetString("Farge");
 
 
         switch (farge)
@@ -66,6 +76,10 @@ public class snu : MonoBehaviour
 
     void Update()
     {
+
+        StartCoroutine(poengFarge());
+        spillscore.text = PlayerPrefs.GetInt("Spillscore").ToString();
+
         var accelerationx = Input.acceleration.x;
 
         if(accelerationx > 0.9 && antallSnu > 0)
@@ -86,7 +100,9 @@ public class snu : MonoBehaviour
 
             if (antallSnu == 0)
             {
-                
+                PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+                nyRett = true;
+                rettTone.Play();
                 SceneManager.LoadScene("MainTest");
                 
             }
@@ -95,7 +111,11 @@ public class snu : MonoBehaviour
 
         accelerationDir = Input.acceleration;  
         if(accelerationDir.sqrMagnitude >= 20f){
-            antall.text = ("Du ristet for hardt og ødela prøven!");
+            tekst.text = ("Du ristet for hardt og ødela prøven!");
+            antallSnu = 7;
+            nyFeil = true;
+            feilTone.Play();
+
         }
         
     }
@@ -103,4 +123,28 @@ public class snu : MonoBehaviour
     void SetTekst(string i){
         tekst.text = i;
     }
+
+    private IEnumerator poengFarge()
+    {
+        if (nyRett)
+        {
+            poengPanel.color = Color.green;
+            yield return new WaitForSeconds(1);
+            poengPanel.color = Color.white;
+            nyRett = false;
+
+        }
+
+        if (nyFeil){
+            poengPanel.color = Color.red;
+            yield return new WaitForSeconds(1);
+            poengPanel.color = Color.white;
+            nyFeil = false;
+
+
+        }
+
+
+    }
+
 }

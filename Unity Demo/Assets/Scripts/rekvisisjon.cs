@@ -35,15 +35,7 @@ public class rekvisisjon : MonoBehaviour
             case 3:
                 content.GetComponent<Image>().sprite = rekBilde3;
                 break;
-            case 4:
-                content.GetComponent<Image>().sprite = rekBilde4;
-                break;
-            case 5:
-                content.GetComponent<Image>().sprite = rekBilde5;
-                break;
-            case 6:
-                content.GetComponent<Image>().sprite = rekBilde6;
-                break;
+           
             default:
                 content.GetComponent<Image>().sprite = rekBilde1;
                 break;

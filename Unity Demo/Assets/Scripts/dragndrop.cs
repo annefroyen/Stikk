@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class dragndrop : MonoBehaviour
@@ -14,9 +15,14 @@ public class dragndrop : MonoBehaviour
     public Text poengTekst;
     public int poeng;
 
-    public bool minusPoeng, plussPoeng;
+    public string nesteScene;
+    public Image poengPanel;
 
-    
+    public bool nyRett, nyFeil;
+    public bool rød, blå, gul, lilla, sort, grønn;
+    public Sprite etikettKariRød, etikettKariLilla, etikettKariSort, etikettOlaBlå, etikettOlaRød, etikettOlaLilla, etikettLindaGul, etikettLindaGrønn, etikettLindaLilla, etikettLindaBlå;
+
+    public AudioSource feilTone, rettTone;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +36,14 @@ public class dragndrop : MonoBehaviour
         sortEtikettPos = sortEtikett.transform.position;
         grønnEtikettPos = grønnEtikett.transform.position;
         poeng = 0;
-        minusPoeng = false;
-        plussPoeng = false;
+        nyRett = false;
+        nyFeil = false;
+        rød = false;
+        blå = false;
+        grønn = false;
+        lilla = false;
+        gul = false;
+        sort = false;
 
         StartCoroutine(poengFarge());
 
@@ -42,6 +54,9 @@ public class dragndrop : MonoBehaviour
     void Update()
     {
         poengTekst.text = PlayerPrefs.GetInt("Spillscore").ToString();
+        StartCoroutine(poengFarge());
+        StartCoroutine(ventPaaNesteScene(nesteScene));
+
 
     }
 
@@ -76,29 +91,7 @@ public class dragndrop : MonoBehaviour
     }
 
 
-    IEnumerator poengFarge()
-    {
-        if (plussPoeng)
-        {
-          poengTekst.color = Color.green;
-          yield return new WaitForSeconds(2);
-          poengTekst.color = Color.black;
-        }
 
-        if (minusPoeng)
-        {
-
-
-            poengTekst.color = Color.red;
-            yield return new WaitForSeconds(2);
-            poengTekst.color = Color.black;
-        }
-
-      
-       
-       
-
-    }
      public void DropRød()
     {
         float Distance = Vector3.Distance(rødEtikett.transform.position, rødtRør.transform.position);
@@ -109,14 +102,16 @@ public class dragndrop : MonoBehaviour
             rødEtikett.SetActive(false);
            // poeng++;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
-            plussPoeng = true;
+            nyRett = true;
+            rettTone.Play();
+            rød = false;
 
         }
         else
         {
             rødEtikett.transform.position = rødEtikettPos;
-            minusPoeng = true;
-
+            nyFeil = true;
+            feilTone.Play();
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
             //poeng--;
         }
@@ -131,6 +126,10 @@ public class dragndrop : MonoBehaviour
             blåttRør.GetComponent<Image>().sprite = blåttRørMedEtikett;
             blåEtikett.SetActive(false);
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            blå = false;
+            nyRett = true;
+            rettTone.Play();
+            
            // poeng++;
 
         }
@@ -138,6 +137,9 @@ public class dragndrop : MonoBehaviour
         {
             blåEtikett.transform.position = blåEtikettPos;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
+            
             //poeng--;
         }
     }
@@ -152,6 +154,9 @@ public class dragndrop : MonoBehaviour
             lillaEtikett.SetActive(false);
            // poeng++;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            lilla = false;
+            nyRett = true;
+            rettTone.Play();
 
         }
         else
@@ -159,6 +164,8 @@ public class dragndrop : MonoBehaviour
             lillaEtikett.transform.position = lillaEtikettPos;
             //poeng--;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
         }
     }
 
@@ -172,6 +179,9 @@ public class dragndrop : MonoBehaviour
             gulEtikett.SetActive(false);
             //  poeng++;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            gul = false;
+            nyRett = true;
+            rettTone.Play();
 
         }
         else
@@ -179,6 +189,8 @@ public class dragndrop : MonoBehaviour
             gulEtikett.transform.position = gulEtikettPos;
             //poeng--;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
         }
     }
 
@@ -191,6 +203,9 @@ public class dragndrop : MonoBehaviour
             sortRør.GetComponent<Image>().sprite = sortRørMedEtikett;
             sortEtikett.SetActive(false);
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            sort = false;
+            nyRett = true;
+            rettTone.Play();
             //poeng++;
 
         }
@@ -199,6 +214,8 @@ public class dragndrop : MonoBehaviour
             sortEtikett.transform.position = sortEtikettPos;
            // poeng--;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
         }
     }
 
@@ -210,23 +227,24 @@ public class dragndrop : MonoBehaviour
             grønnEtikett.transform.position = grøntRør.transform.position;
             grøntRør.GetComponent<Image>().sprite = grøntRørMedEtikett;
             grønnEtikett.SetActive(false);
-           // poeng++;
+            nyRett = true;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            grønn = false;
+            rettTone.Play();
+
 
         }
         else
         {
             grønnEtikett.transform.position = grønnEtikettPos;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
            // poeng--;
         }
     }
 
 
-    // private void OnMouseOver()
-    //{
-    //    rør1.Select();
-    //}
 
 
     public void seEtterRekvisisjon()
@@ -239,39 +257,99 @@ public class dragndrop : MonoBehaviour
             case 1:
                 //Kari
                 rødKnappObjekt.SetActive(true);
+                rødEtikett.GetComponent<Image>().sprite = etikettKariRød;
                 rødEtikett.SetActive(true);
+                rød = true;
+
                 lillaKnappObjekt.SetActive(true);
+                lillaEtikett.GetComponent<Image>().sprite = etikettKariLilla;
                 lillaEtikett.SetActive(true);
+                lilla = true;
+
                 sortKnappObjekt.SetActive(true);
+                sortEtikett.GetComponent<Image>().sprite = etikettKariSort;
                 sortEtikett.SetActive(true);
+                sort = true;
                 break;
 
             case 2:
                 //Ola
                 blåKnappObjekt.SetActive(true);
+                blåEtikett.GetComponent<Image>().sprite = etikettOlaBlå;
                 blåEtikett.SetActive(true);
+                blå = true;
+
                 rødKnappObjekt.SetActive(true);
+                rødEtikett.GetComponent<Image>().sprite = etikettOlaRød;
                 rødEtikett.SetActive(true);
+                rød = true;
+
                 lillaKnappObjekt.SetActive(true);
                 lillaEtikett.SetActive(true);
+                lillaEtikett.GetComponent<Image>().sprite = etikettOlaLilla;
+                lilla = true;
                 break;
 
             case 3:
                 //linda
                 blåKnappObjekt.SetActive(true);
+                blåEtikett.GetComponent<Image>().sprite = etikettLindaBlå;
                 blåEtikett.SetActive(true);
+                blå = true;
+
                 gulKnappObjekt.SetActive(true);
+                gulEtikett.GetComponent<Image>().sprite = etikettLindaGul;
                 gulEtikett.SetActive(true);
+                gul = true;
+
                 grønnKnappObjekt.SetActive(true);
+                grønnEtikett.GetComponent<Image>().sprite = etikettLindaGrønn;
                 grønnEtikett.SetActive(true);
+                grønn = true;
+
+                lillaKnappObjekt.SetActive(true);
+                lillaEtikett.GetComponent<Image>().sprite = etikettLindaLilla;
+                lillaEtikett.SetActive(true);
+                lilla = true;
                 break;
 
             default:
                 break;
-
         }
     }
 
 
+    public IEnumerator ventPaaNesteScene(string scene)
+    {
 
+        if (!sort && !blå && !gul && !rød && !lilla && !grønn)
+        {
+            yield return new WaitForSeconds(2);
+            SceneManager.LoadScene(scene);
+        }
+
+
+    }
+
+    private IEnumerator poengFarge()
+    {
+        if (nyRett)
+        {
+           
+            poengPanel.color = Color.green;
+            yield return new WaitForSeconds(1);
+            poengPanel.color = Color.white;
+            nyRett = false;
+
+        }
+
+        if (nyFeil)
+        {
+           
+            poengPanel.color = Color.red;
+            yield return new WaitForSeconds(1);
+            poengPanel.color = Color.white;
+            nyFeil = false;
+        }
+    }
 }

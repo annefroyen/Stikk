@@ -13,6 +13,7 @@ public class finnVene : MonoBehaviour
     public GameObject SlakkStaseKnapp;
     public Image poengPanel;
     public bool nyRett;
+    public AudioSource rettTone;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,10 @@ public class finnVene : MonoBehaviour
         
         PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
         nyRett = true;
+        rettTone.Play();
         SlakkStaseKnapp.SetActive(true);
+        PlayerPrefs.SetInt("StaseknappBrukt", 1);
+
     }
 
     public void veneKlikket()

@@ -27,8 +27,15 @@ public class Resultat : MonoBehaviour
      
 
         ssTekst.text = spillscore.ToString();
-      
-            
+
+        //første runde er ferdig, instruksjoner går vekk
+        int førsteKjøring = PlayerPrefs.GetInt("FørsteKjøring");
+
+        if (førsteKjøring == 0)
+        {
+            PlayerPrefs.SetInt("FørsteKjøring", 1);
+        }
+
 
     }
 

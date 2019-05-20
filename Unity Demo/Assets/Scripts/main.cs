@@ -28,6 +28,7 @@ public class main : MonoBehaviour
 
     public bool kanyle;
     public bool staseband;
+    public bool staseK;
     public bool teip;
     public bool bomull;
     public bool desinfeksjonsmiddel;
@@ -66,6 +67,7 @@ public class main : MonoBehaviour
     public Image poengPanel;
 
     public GameObject staseKnappObjekt;
+    public GameObject staseKObjekt;
     public GameObject desinfiserKnappObjekt;
     public GameObject kanyleKnappObjekt;
     public GameObject kanyleDelKnappObjekt;
@@ -93,7 +95,7 @@ public class main : MonoBehaviour
     void Start()
     {
 
-        SetTekst("Tekst");
+       
 
         blåKnappObjekt.GetComponent<Image>().sprite = blåSprite;
         rødKnappObjekt.GetComponent<Image>().sprite = rødSprite;
@@ -106,6 +108,7 @@ public class main : MonoBehaviour
 
         kanyle = false;
         staseband = false;
+        staseK = false;
         teip = false;
         bomull = false;
         desinfeksjonsmiddel = false;
@@ -148,32 +151,21 @@ public class main : MonoBehaviour
     {
         poengTekst.text = PlayerPrefs.GetInt("Spillscore").ToString();
 
-       
+      
 
         StartCoroutine(poengFarge());
-
-
-
-        /*
-        if (nyRett)
-        {
-            poengPanel.color = Color.green;
-            nyRett = false;
-            
-        }
-
-        if (nyFeil)
-        {
-            poengPanel.color = Color.red;
-            nyFeil = false;
-        }
-        */
 
     }
 
 
+    void testMetode()
+    {
+        rettTone.Play();
+    }
+
     void stasebandKlikket()
     {
+
         if (!staseband)
         {
             staseband = true;
@@ -330,7 +322,7 @@ public class main : MonoBehaviour
             nyRett = true;
             rettTone.Play();
             StartCoroutine(playVideo(gulVideo));
-
+            videoPlayer.loopPointReached += LoadScene;
             void LoadScene(VideoPlayer vp)
             {
                 SceneManager.LoadScene("Vending");
@@ -357,7 +349,7 @@ public class main : MonoBehaviour
             nyRett = true;
             rettTone.Play();
             StartCoroutine(playVideo(grønnVideo));
-
+            videoPlayer.loopPointReached += LoadScene;
             void LoadScene(VideoPlayer vp)
             {
                 SceneManager.LoadScene("Vending");
@@ -383,7 +375,10 @@ public class main : MonoBehaviour
             PlayerPrefs.SetString("Farge", "lilla");
             nyRett = true;
             rettTone.Play();
+
             StartCoroutine(playVideo(lillaVideo));
+
+            videoPlayer.loopPointReached += LoadScene;
 
             void LoadScene(VideoPlayer vp)
             {
@@ -411,7 +406,7 @@ public class main : MonoBehaviour
             nyRett = true;
             rettTone.Play();
             StartCoroutine(playVideo(sortVideo));
-
+            videoPlayer.loopPointReached += LoadScene;
             void LoadScene(VideoPlayer vp)
             {
                 SceneManager.LoadScene("Vending");
@@ -475,22 +470,29 @@ public class main : MonoBehaviour
 
     void staseKnappKlikket()
     {
-        if (!staseband)
+        if (staseband && desinfiserKnappObjekt && kanyle && !staseK)
         {
-            staseband = true;
+            staseK = true;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            nyRett = true;
+            rettTone.Play();
             StartCoroutine(playVideo(stramStaseVideo));
             staseKnappTekst.text = "Slakk stase";
 
-        }
-
-        if (staseband)
+        }else if (staseK)
         {
-            staseband = false;
+            staseK = false;
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
+            nyRett = true;
+            rettTone.Play();
             StartCoroutine(playVideo(slakkStaseVideo));
             staseKnappTekst.text = "Stram stase";
-
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
+            nyFeil = true;
+            feilTone.Play();
         }
 
     }
@@ -579,6 +581,8 @@ public class main : MonoBehaviour
                 gulKnappObjekt.SetActive(true);
                 grønn = false;
                 grønnKnappObjekt.SetActive(true);
+                lilla = false;
+                lillaKnappObjekt.SetActive(true);
                 break;
 
             default:
@@ -651,6 +655,12 @@ public class main : MonoBehaviour
         {
             sortKnappObjekt.GetComponent<Image>().sprite = sortBlodSprite;
             sort = true;
+        }
+
+        int staseknappBrukt = PlayerPrefs.GetInt("StaseknappBrukt");
+        if(staseknappBrukt == 1)
+        {
+            staseKObjekt.SetActive(true);
         }
 
 
