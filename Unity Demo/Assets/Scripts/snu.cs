@@ -79,12 +79,10 @@ public class snu : MonoBehaviour
 
         StartCoroutine(poengFarge());
         spillscore.text = PlayerPrefs.GetInt("Spillscore").ToString();
-
         var accelerationx = Input.acceleration.x;
 
         if(accelerationx > 0.9 && antallSnu > 0)
-        {
-            
+        { 
             snudd = false;
         }
 
@@ -104,9 +102,7 @@ public class snu : MonoBehaviour
                 nyRett = true;
                 rettTone.Play();
                 SceneManager.LoadScene("MainTest");
-                
             }
-
         }
 
         accelerationDir = Input.acceleration;  
@@ -115,9 +111,7 @@ public class snu : MonoBehaviour
             antallSnu = 7;
             nyFeil = true;
             feilTone.Play();
-
         }
-        
     }
 
     void SetTekst(string i){

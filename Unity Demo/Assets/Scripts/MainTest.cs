@@ -157,39 +157,27 @@ public class MainTest : MonoBehaviour
 
     void stasebandKlikket()
     {
-
         if (!staseband)
         {
             staseband = true;
-
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             PlayerPrefs.SetInt("StaseBrukt", 1);
             nyRett = true;
             rettTone.Play();
-
-
             StartCoroutine(playVideo(stramStaseVideo));
-
             staseKnappObjekt.SetActive(false);
-
-
             videoPlayer.loopPointReached += LoadScene;
-
             void LoadScene(VideoPlayer vp)
             {
                 SceneManager.LoadScene("finn vene");
             }
-
         }
         else
         {
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
             nyFeil = true;
             feilTone.Play();
-
-
         }
-
     }
 
     void desinfeksjonsmiddelKlikket()

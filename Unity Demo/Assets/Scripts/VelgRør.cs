@@ -217,9 +217,7 @@ public class VelgRør : MonoBehaviour
 
     public void seEtterRekvisisjon()
     {
-
         int rekNr = PlayerPrefs.GetInt("Rekvisisjon");
-
         switch (rekNr)
         {
             case 1:

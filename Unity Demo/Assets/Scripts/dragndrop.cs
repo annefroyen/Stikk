@@ -100,7 +100,7 @@ public class dragndrop : MonoBehaviour
             rødEtikett.transform.position = rødtRør.transform.position;
             rødtRør.GetComponent<Image>().sprite = rødtRørMedEtikett;
             rødEtikett.SetActive(false);
-           // poeng++;
+          
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") + 1);
             nyRett = true;
             rettTone.Play();
@@ -113,7 +113,7 @@ public class dragndrop : MonoBehaviour
             nyFeil = true;
             feilTone.Play();
             PlayerPrefs.SetInt("Spillscore", PlayerPrefs.GetInt("Spillscore") - 1);
-            //poeng--;
+          
         }
     }
 
@@ -130,7 +130,7 @@ public class dragndrop : MonoBehaviour
             nyRett = true;
             rettTone.Play();
             
-           // poeng++;
+         
 
         }
         else
@@ -140,7 +140,7 @@ public class dragndrop : MonoBehaviour
             nyFeil = true;
             feilTone.Play();
             
-            //poeng--;
+          
         }
     }
 
